@@ -8,4 +8,8 @@
     <ProjectReference Include="..\Jambopay.Data\Jambopay.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="CommissionWithdrawals\" />
+  </ItemGroup>
+
 </Project>
