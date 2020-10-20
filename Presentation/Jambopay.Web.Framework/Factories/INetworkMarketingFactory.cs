@@ -12,5 +12,7 @@ namespace Jambopay.Web.Framework.Factories
         CustomerViewModel RegisterSupporter(RegisterSupporterViewModel registerSupporterViewModel);
         void Transact(TransactViewModel transactViewModel);
         AmbassadorCommissionBalanceViewModel ViewAmbassadorCommissionBalance(int ambassadorId);
+        CreateTransactionViewModel PrepareCreateTransactionModel();
+        int GetSupporterIdByEmail(string supporterEmail);
     }
 }

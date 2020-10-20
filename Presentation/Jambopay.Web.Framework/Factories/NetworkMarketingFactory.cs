@@ -1,8 +1,6 @@
-﻿using Jambopay.Core.Domain.Affiliates;
-using Jambopay.Core.Domain.Customers;
+﻿using Jambopay.Core.Domain.Customers;
 using Jambopay.Core.Domain.Services;
 using Jambopay.Core.Domain.ServiceTransactions;
-using Jambopay.Services.Affiliates;
 using Jambopay.Services.Customers;
 using Jambopay.Services.Services;
 using Jambopay.Services.ServiceTransactions;
@@ -20,7 +18,6 @@ namespace Jambopay.Web.Framework.Factories
 
         private readonly IServiceService _serviceService;
         private readonly ICustomerService _customerService;
-        private readonly IAffiliateService _affiliateService;
         private readonly IServiceTransactionService _serviceTransactionService;
 
         #endregion
@@ -29,12 +26,10 @@ namespace Jambopay.Web.Framework.Factories
 
         public NetworkMarketingFactory(IServiceService serviceService,
             ICustomerService customerService,
-            IAffiliateService affiliateService,
             IServiceTransactionService serviceTransactionService)
         {
             this._serviceService = serviceService;
             this._customerService = customerService;
-            this._affiliateService = affiliateService;
             this._serviceTransactionService = serviceTransactionService;
         }
 
@@ -94,6 +89,14 @@ namespace Jambopay.Web.Framework.Factories
             }
         }
 
+        public CreateTransactionViewModel PrepareCreateTransactionModel()
+        {
+            return new CreateTransactionViewModel
+            {
+                AvailableService = _serviceService.GetServices()
+            };
+        }
+
         public CustomerViewModel RegisterAmbassador(RegisterAmbassadorViewModel registerAmbassadorViewModel)
         {
             var customer = _customerService.GetCustomerByEmail(registerAmbassadorViewModel.Email);
@@ -102,28 +105,15 @@ namespace Jambopay.Web.Framework.Factories
             {
                 customer = new Customer
                 {
-                    Email = registerAmbassadorViewModel.Email
+                    Email = registerAmbassadorViewModel.Email,
                 };
 
                 _customerService.InsertCustomer(customer);
             }
 
-            var affiliate = _affiliateService.GetAffiliateByCustomerId(customer.Id);
-
-            var newAmbassador = new Affiliate
-            {
-                CustomerId = customer.Id,
-                Deleted = false,
-                Active = true
-            };
-
-            if (affiliate == null)
-                _affiliateService.InsertAffiliate(newAmbassador);
-
             return new CustomerViewModel
             {
                 Id = customer.Id,
-                AffiliateId = newAmbassador.Id,
                 CustomerGuid = customer.CustomerGuid,
                 Email = customer.Email
             };
@@ -143,23 +133,9 @@ namespace Jambopay.Web.Framework.Factories
                 _customerService.InsertCustomer(customer);
             }
 
-            var affiliate = _affiliateService.GetAffiliateByCustomerId(customer.Id);
-
-            var newSupporter = new Affiliate
-            {
-                CustomerId = customer.Id,
-                Deleted = false,
-                Active = true,
-                AmbassadorId = registerSupporterViewModel.AmbassadorId
-            };
-
-            if (affiliate == null)
-                _affiliateService.InsertAffiliate(newSupporter);
-
             return new CustomerViewModel
             {
                 Id = customer.Id,
-                AffiliateId = newSupporter.Id,
                 CustomerGuid = customer.CustomerGuid,
                 Email = customer.Email
             };
@@ -167,19 +143,7 @@ namespace Jambopay.Web.Framework.Factories
 
         public void Transact(TransactViewModel transactViewModel)
         {
-            var supporter = _affiliateService.GetAffiliateById(transactViewModel.SupporterId);
-            var service = _serviceService.GetServiceById(transactViewModel.ServiceId);
 
-            var newTransaction = new ServiceTransaction()
-            {
-                AmbassadorId = supporter.AmbassadorId,
-                Amount = transactViewModel.Amount,
-                CommissionAmount = ComputeAmbassadorCommission(transactViewModel.Amount, service.AmbassadorCommissionRate),
-                ServiceId = service.Id,
-                SupporterId = supporter.Id
-            };
-
-            _serviceTransactionService.InsertServiceTransaction(newTransaction);
         }
 
         public AmbassadorCommissionBalanceViewModel ViewAmbassadorCommissionBalance(int ambassadorId)
@@ -193,17 +157,22 @@ namespace Jambopay.Web.Framework.Factories
 
             foreach (var ambassadorTransaction in ambassadorTransactions)
             {
-                var affiliate = _affiliateService.GetAffiliateById(ambassadorTransaction.SupporterId);
-
                 ambassadorCommissionBalanceViewModel.Transactions.Add(new TransactionViewModel
                 {
-                    SupporterEmail = (_customerService.GetCustomerById(affiliate.CustomerId)).Email,
+                    SupporterEmail = (_customerService.GetCustomerById(1)).Email,
                     Amount = ambassadorTransaction.Amount,
                     CommissionAmount = ambassadorTransaction.CommissionAmount
                 });
             }
 
             return ambassadorCommissionBalanceViewModel;
+        }
+
+        public int GetSupporterIdByEmail(string supporterEmail)
+        {
+            var customer = _customerService.GetCustomerByEmail(supporterEmail);
+
+            return customer.Id;
         }
 
         #endregion

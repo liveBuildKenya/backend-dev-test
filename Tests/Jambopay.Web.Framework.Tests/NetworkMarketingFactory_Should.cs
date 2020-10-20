@@ -10,7 +10,7 @@ namespace Jambopay.Web.Framework.Tests
         [TestMethod]
         public void CalculateAmbassadorCommission()
         {
-            var networkMaketingFactory = new NetworkMarketingFactory(null, null, null, null);
+            var networkMaketingFactory = new NetworkMarketingFactory(null, null, null);
 
             var transactionAmount = 100m;
             var commissionRate = .05m;

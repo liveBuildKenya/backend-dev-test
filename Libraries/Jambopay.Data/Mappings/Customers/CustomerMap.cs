@@ -1,4 +1,6 @@
-﻿using Jambopay.Core.Domain.Customers;
+﻿using Jambopay.Core.Domain.CommissionWithdrawals;
+using Jambopay.Core.Domain.Customers;
+using Jambopay.Core.Domain.ServiceTransactions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -16,6 +18,18 @@ namespace Jambopay.Data.Mappings.Customers
             builder.HasKey(customer => customer.Id);
             builder.Property(customer => customer.CreatedOn).HasDefaultValue(DateTime.UtcNow);
             builder.Property(customer => customer.Email).IsRequired();
+
+            builder.HasMany<ServiceTransaction>()
+                .WithOne()
+                .HasForeignKey(serviceTransaction => serviceTransaction.SupporterId);
+
+            builder.HasMany<ServiceTransaction>()
+                .WithOne()
+                .HasForeignKey(serviceTransaction => serviceTransaction.AmbassadorId);
+
+            builder.HasMany<CommissionWithdrawal>()
+                .WithOne()
+                .HasForeignKey(commissionWithdrawal => commissionWithdrawal.CustomerId);
         }
     }
 }

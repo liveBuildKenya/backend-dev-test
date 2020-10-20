@@ -2,7 +2,6 @@
 using Jambopay.Core.Infrastructure;
 using Jambopay.Data;
 using Jambopay.Data.Infrastructure;
-using Jambopay.Services.Affiliates;
 using Jambopay.Services.Customers;
 using Jambopay.Services.Services;
 using Jambopay.Services.ServiceTransactions;
@@ -42,7 +41,6 @@ namespace Jambopay.Web.Framework.Extensions
             #region Services
 
             services.AddTransient<ICustomerService, CustomerService>();
-            services.AddTransient<IAffiliateService, AffiliateService>();
             services.AddTransient<IServiceService, ServiceService>();
             services.AddTransient<IServiceTransactionService, ServiceTransactionService>();
 
