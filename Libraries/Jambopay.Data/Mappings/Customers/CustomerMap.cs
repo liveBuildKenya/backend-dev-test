@@ -21,11 +21,13 @@ namespace Jambopay.Data.Mappings.Customers
 
             builder.HasMany<ServiceTransaction>()
                 .WithOne()
-                .HasForeignKey(serviceTransaction => serviceTransaction.SupporterId);
+                .HasForeignKey(serviceTransaction => serviceTransaction.SupporterId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasMany<ServiceTransaction>()
                 .WithOne()
-                .HasForeignKey(serviceTransaction => serviceTransaction.AmbassadorId);
+                .HasForeignKey(serviceTransaction => serviceTransaction.AmbassadorId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasMany<CommissionWithdrawal>()
                 .WithOne()
