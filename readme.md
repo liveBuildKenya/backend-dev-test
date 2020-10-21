@@ -122,6 +122,8 @@ The following code decrypts the data from the database
 ```
 
 2. Endpoint protection
+
+
 The route to transact has been protected using the authorized attribute preventing users without a jwt token from accessing it. The jwt token is provided from the authorization header as:
 
 ``` 
