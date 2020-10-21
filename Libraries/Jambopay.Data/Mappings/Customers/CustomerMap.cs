@@ -16,7 +16,6 @@ namespace Jambopay.Data.Mappings.Customers
         {
             builder.ToTable(nameof(Customer));
             builder.HasKey(customer => customer.Id);
-            builder.Property(customer => customer.CreatedOn).HasDefaultValue(DateTime.UtcNow);
             builder.Property(customer => customer.Email).IsRequired();
 
             builder.HasMany<ServiceTransaction>()

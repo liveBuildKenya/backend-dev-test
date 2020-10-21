@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Jambopay.Core.Domain.ServiceTransactions;
 using Jambopay.Data.Infrastructure;
 
@@ -32,12 +33,12 @@ namespace Jambopay.Services.ServiceTransactions
         /// Creates a ServiceTransaction
         /// </summary>
         /// <param name="serviceTransaction">ServiceTransaction</param>
-        public void InsertServiceTransaction(ServiceTransaction serviceTransaction)
+        public async Task InsertServiceTransactionAsync(ServiceTransaction serviceTransaction)
 		{
 			if (serviceTransaction == null)
                 throw new ArgumentNullException(nameof(ServiceTransaction));
 
-            _serviceTransactionRepository.Insert(serviceTransaction);
+            await _serviceTransactionRepository.InsertAsync(serviceTransaction);
 		}
 		
 		/// <summary>
@@ -96,6 +97,11 @@ namespace Jambopay.Services.ServiceTransactions
 			return _serviceTransactionRepository.Table
 				.Where(serviceTransaction => serviceTransaction.AmbassadorId == ambassadorId)
 				.ToList();
+        }
+
+        public IQueryable<ServiceTransaction> GetQueryableServiceTransaction()
+        {
+			return _serviceTransactionRepository.Table;
         }
 
         #endregion

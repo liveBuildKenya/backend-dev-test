@@ -23,11 +23,11 @@
         /// <summary>
         /// Gets or sets the amount
         /// </summary>
-        public decimal Amount { get; set; }
+        public string Amount { get; set; }
 
         /// <summary>
         /// Gets or sets the commission amount
         /// </summary>
-        public decimal CommissionAmount { get; set; }
+        public string CommissionAmount { get; set; }
     }
 }

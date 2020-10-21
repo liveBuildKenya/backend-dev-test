@@ -1,6 +1,10 @@
-﻿using Jambopay.Web.Framework.Factories;
+﻿using Jambopay.Core;
+using Jambopay.Core.Domain.ServiceTransactions;
+using Jambopay.Web.Framework.Factories.NetworkMarketing;
 using Jambopay.Web.Framework.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Jambopay.Web.Api.Controllers
 {
@@ -22,6 +26,12 @@ namespace Jambopay.Web.Api.Controllers
         }
 
         [HttpPost]
+        public CustomerViewModel Login([FromBody] LoginViewModel loginViewModel)
+        {
+            return _networkMarketingFactory.Login(loginViewModel);
+        }
+
+        [HttpPost]
         public CustomerViewModel RegisterAmbassador([FromBody] RegisterAmbassadorViewModel registerAmbassadorViewModel)
         {
             return _networkMarketingFactory.RegisterAmbassador(registerAmbassadorViewModel);
@@ -34,9 +44,17 @@ namespace Jambopay.Web.Api.Controllers
         }
 
         [HttpPost]
-        public void Transact([FromBody] TransactViewModel transactViewModel)
+        [Authorize]
+        public async Task<TransactResponseViewModel> Transact([FromBody] TransactViewModel transactViewModel)
         {
-            _networkMarketingFactory.Transact(transactViewModel);
+            return await _networkMarketingFactory.Transact(transactViewModel);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IPagedList<TransactionViewModel> ViewTransactions([FromQuery] PagingViewModel pagingViewModel)
+        {
+            return _networkMarketingFactory.ViewTransactions(pagingViewModel);
         }
 
         [HttpGet("{ambassadorId}")]

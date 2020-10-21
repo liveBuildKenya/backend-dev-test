@@ -1,7 +1,6 @@
 ﻿using Jambopay.Core.Domain.CommissionWithdrawals;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
 
 namespace Jambopay.Data.Mappings.CommissionWithdrawals
 {
@@ -14,7 +13,6 @@ namespace Jambopay.Data.Mappings.CommissionWithdrawals
         {
             builder.ToTable(nameof(CommissionWithdrawal));
             builder.HasKey(commissionWithdrawal => commissionWithdrawal.Id);
-            builder.Property(commissionWithdrawal => commissionWithdrawal.CreatedOn).HasDefaultValue(DateTime.UtcNow);
         }
     }
 }

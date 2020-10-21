@@ -4,14 +4,16 @@ using Jambopay.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Jambopay.Data.Migrations
 {
     [DbContext(typeof(JambopayDataProvider))]
-    partial class JambopayDataProviderModelSnapshot : ModelSnapshot
+    [Migration("20201021100003_ChangeByteToString")]
+    partial class ChangeByteToString
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

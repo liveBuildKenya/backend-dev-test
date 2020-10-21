@@ -1,5 +1,6 @@
 ﻿using Jambopay.Core.Domain;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Jambopay.Data.Infrastructure
 {
@@ -15,7 +16,20 @@ namespace Jambopay.Data.Infrastructure
         /// </summary>
         /// <param name="id">Identifier</param>
         /// <returns>Entity</returns>
+        Task<TEntity> GetByIdAsync(object id);
+
+        /// <summary>
+        /// Gets an entity by identifier
+        /// </summary>
+        /// <param name="id">Identifier</param>
+        /// <returns>Entity</returns>
         TEntity GetById(object id);
+
+        /// <summary>
+        /// Insert entity
+        /// </summary>
+        /// <param name="entity">Entity</param>
+        Task InsertAsync(TEntity entity);
 
         /// <summary>
         /// Insert entity
@@ -27,7 +41,19 @@ namespace Jambopay.Data.Infrastructure
         /// Update entity
         /// </summary>
         /// <param name="entity">Entity</param>
+        Task UpdateAsync(TEntity entity);
+
+        /// <summary>
+        /// Update entity
+        /// </summary>
+        /// <param name="entity">Entity</param>
         void Update(TEntity entity);
+
+        /// <summary>
+        /// Delete entity
+        /// </summary>
+        /// <param name="entity">Entity</param>
+        Task DeleteAsync(TEntity entity);
 
         /// <summary>
         /// Delete entity

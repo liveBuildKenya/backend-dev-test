@@ -5,6 +5,7 @@ using Jambopay.Data.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Jambopay.Data
 {
@@ -65,6 +66,11 @@ namespace Jambopay.Data
         public virtual new DbSet<TEntity> Set<TEntity>() where TEntity : BaseEntity
         {
             return base.Set<TEntity>();
+        }
+
+        public Task<int> SaveChangesAsync()
+        {
+            return base.SaveChangesAsync();
         }
 
         #endregion

@@ -38,7 +38,7 @@ namespace Jambopay.Web.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSwaggerDocument();
-            services.ConfigureJambopayServices(WebHostEnvironment);
+            services.ConfigureJambopayServices(WebHostEnvironment, Configuration);
             services.AddControllers();
         }
 
@@ -57,6 +57,7 @@ namespace Jambopay.Web.Api
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

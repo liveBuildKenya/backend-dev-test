@@ -13,7 +13,7 @@ namespace Jambopay.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CreatedOn = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2020, 10, 20, 3, 58, 9, 76, DateTimeKind.Utc).AddTicks(2206)),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
                     CustomerGuid = table.Column<Guid>(nullable: false),
                     Email = table.Column<string>(nullable: false),
                     Password = table.Column<string>(nullable: true),
@@ -23,7 +23,7 @@ namespace Jambopay.Data.Migrations
                     AmbassadorId = table.Column<int>(nullable: false),
                     Deleted = table.Column<bool>(nullable: false),
                     Active = table.Column<bool>(nullable: false),
-                    CommissionBalance = table.Column<string>(nullable: true)
+                    CommissionBalance = table.Column<byte[]>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -36,7 +36,7 @@ namespace Jambopay.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CreatedOn = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2020, 10, 20, 3, 58, 8, 940, DateTimeKind.Utc).AddTicks(1310)),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(nullable: false),
                     AmbassadorCommissionRate = table.Column<decimal>(nullable: false)
                 },
@@ -51,7 +51,7 @@ namespace Jambopay.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CreatedOn = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2020, 10, 20, 3, 58, 9, 93, DateTimeKind.Utc).AddTicks(5196)),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
                     CustomerId = table.Column<int>(nullable: false),
                     Amount = table.Column<decimal>(nullable: false)
                 },
@@ -72,12 +72,12 @@ namespace Jambopay.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CreatedOn = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2020, 10, 20, 3, 58, 8, 925, DateTimeKind.Utc).AddTicks(483)),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
                     SupporterId = table.Column<int>(nullable: false),
                     AmbassadorId = table.Column<int>(nullable: false),
                     ServiceId = table.Column<int>(nullable: false),
-                    Amount = table.Column<decimal>(nullable: false),
-                    CommissionAmount = table.Column<decimal>(nullable: false)
+                    Amount = table.Column<byte[]>(nullable: true),
+                    CommissionAmount = table.Column<byte[]>(nullable: true)
                 },
                 constraints: table =>
                 {

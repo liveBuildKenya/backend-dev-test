@@ -1,6 +1,7 @@
 
 using Jambopay.Core.Domain.Customers;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Jambopay.Services.Customers
 {
@@ -40,6 +41,12 @@ namespace Jambopay.Services.Customers
         /// </summary>
 		/// <returns>Customers</returns>
 		IList<Customer> GetCustomers();
+
+        /// <summary>
+        /// Gets queryable customers
+        /// </summary>
+        /// <returns></returns>
+        IQueryable<Customer> GetQueryableCustomer();
 
         /// <summary>
         /// Gets a customer by email

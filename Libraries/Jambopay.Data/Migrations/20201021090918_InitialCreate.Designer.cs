@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Jambopay.Data.Migrations
 {
     [DbContext(typeof(JambopayDataProvider))]
-    [Migration("20201020035809_InitialCreate")]
+    [Migration("20201021090918_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,9 +32,7 @@ namespace Jambopay.Data.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("CreatedOn")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 10, 20, 3, 58, 9, 93, DateTimeKind.Utc).AddTicks(5196));
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
@@ -59,13 +57,11 @@ namespace Jambopay.Data.Migrations
                     b.Property<int>("AmbassadorId")
                         .HasColumnType("int");
 
-                    b.Property<string>("CommissionBalance")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<byte[]>("CommissionBalance")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<DateTime>("CreatedOn")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 10, 20, 3, 58, 9, 76, DateTimeKind.Utc).AddTicks(2206));
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("CustomerGuid")
                         .HasColumnType("uniqueidentifier");
@@ -104,16 +100,14 @@ namespace Jambopay.Data.Migrations
                     b.Property<int>("AmbassadorId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<byte[]>("Amount")
+                        .HasColumnType("varbinary(max)");
 
-                    b.Property<decimal>("CommissionAmount")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<byte[]>("CommissionAmount")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<DateTime>("CreatedOn")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 10, 20, 3, 58, 8, 925, DateTimeKind.Utc).AddTicks(483));
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("ServiceId")
                         .HasColumnType("int");
@@ -143,9 +137,7 @@ namespace Jambopay.Data.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("CreatedOn")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 10, 20, 3, 58, 8, 940, DateTimeKind.Utc).AddTicks(1310));
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()

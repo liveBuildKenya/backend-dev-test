@@ -19,5 +19,7 @@
         /// Gets or sets the commission Ammount
         /// </summary>
         public decimal CommissionAmount { get; set; }
+        public string Name { get; internal set; }
+        public string Service { get; internal set; }
     }
 }

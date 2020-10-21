@@ -14,7 +14,6 @@ namespace Jambopay.Data.Mappings.ServiceTransactions
         {
             builder.ToTable(nameof(ServiceTransaction));
             builder.HasKey(serviceTransaction => serviceTransaction.Id);
-            builder.Property(serviceTransaction => serviceTransaction.CreatedOn).HasDefaultValue(DateTime.UtcNow);
         }
     }
 }

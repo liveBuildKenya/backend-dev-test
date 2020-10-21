@@ -13,11 +13,5 @@ namespace Jambopay.Web.Framework.Models
         /// </summary>
         public decimal CommissionBalanace { get; set; }
 
-        /// <summary>
-        /// Gets or sets the transactions
-        /// </summary>
-        public IList<TransactionViewModel> Transactions { get; set; }
-
-
     }
 }

@@ -98,6 +98,11 @@ namespace Jambopay.Services.Services
 				.FirstOrDefault();
         }
 
+        public IQueryable<Service> GetQueryableService()
+        {
+			return _serviceRepository.Table;
+        }
+
 
         #endregion
     }

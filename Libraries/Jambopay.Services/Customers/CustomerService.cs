@@ -87,6 +87,15 @@ namespace Jambopay.Services.Customers
 		}
 
 		/// <summary>
+		/// Gets queryable customers
+		/// </summary>
+		/// <returns></returns>
+		public IQueryable<Customer> GetQueryableCustomer()
+        {
+			return _customerRepository.Table;
+        }
+
+		/// <summary>
 		/// Gets a customer by email
 		/// </summary>
 		/// <param name="email">customer email</param>

@@ -3,6 +3,7 @@ using Jambopay.Data.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Jambopay.Data
 {
@@ -95,6 +96,26 @@ namespace Jambopay.Data
         /// Deletes an entity
         /// </summary>
         /// <param name="entity">Entity</param>
+        public virtual async Task DeleteAsync(TEntity entity)
+        {
+            if (entity == null)
+                throw new ArgumentNullException(nameof(entity));
+
+            try
+            {
+                Entities.Remove(entity);
+                await _jambopayDataProvider.SaveChangesAsync();
+            }
+            catch (DbUpdateException exception)
+            {
+                throw new Exception(GetFullErrorTextAndRollbackEntityChanges(exception), exception);
+            }
+        }
+
+        /// <summary>
+        /// Deletes an entity
+        /// </summary>
+        /// <param name="entity">Entity</param>
         public virtual void Delete(TEntity entity)
         {
             if (entity == null)
@@ -116,9 +137,40 @@ namespace Jambopay.Data
         /// </summary>
         /// <param name="id">Identifier</param>
         /// <returns>Entity</returns>
+        public virtual async Task<TEntity> GetByIdAsync(object id)
+        {
+            return await Entities.FindAsync(id);
+        }
+
+        /// <summary>
+        /// Gets entity by idnetifier
+        /// </summary>
+        /// <param name="id">Identifier</param>
+        /// <returns>Entity</returns>
         public virtual TEntity GetById(object id)
         {
             return Entities.Find(id);
+        }
+
+        /// <summary>
+        /// Insert entity
+        /// </summary>
+        /// <param name="entity">Entity</param>
+        public virtual async Task InsertAsync(TEntity entity)
+        {
+            if (entity == null)
+                throw new ArgumentNullException(nameof(entity));
+
+            try
+            {
+                await Entities.AddAsync(entity);
+                await _jambopayDataProvider.SaveChangesAsync();
+            }
+            catch (DbUpdateException exception)
+            {
+                //ensure that the detailed error text is saved in the Log
+                throw new Exception(GetFullErrorTextAndRollbackEntityChanges(exception), exception);
+            }
         }
 
         /// <summary>
@@ -134,6 +186,27 @@ namespace Jambopay.Data
             {
                 Entities.Add(entity);
                 _jambopayDataProvider.SaveChanges();
+            }
+            catch (DbUpdateException exception)
+            {
+                //ensure that the detailed error text is saved in the Log
+                throw new Exception(GetFullErrorTextAndRollbackEntityChanges(exception), exception);
+            }
+        }
+
+        /// <summary>
+        /// Update entity
+        /// </summary>
+        /// <param name="entity">Entity</param>
+        public virtual async Task UpdateAsync(TEntity entity)
+        {
+            if (entity == null)
+                throw new ArgumentNullException(nameof(entity));
+
+            try
+            {
+                Entities.Update(entity);
+                await _jambopayDataProvider.SaveChangesAsync();
             }
             catch (DbUpdateException exception)
             {

@@ -1,6 +1,8 @@
 
 using Jambopay.Core.Domain.ServiceTransactions;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Jambopay.Services.ServiceTransactions
 {
@@ -15,7 +17,7 @@ namespace Jambopay.Services.ServiceTransactions
         /// Creates a ServiceTransaction
         /// </summary>
         /// <param name="serviceTransaction">ServiceTransaction</param>
-        void InsertServiceTransaction(ServiceTransaction serviceTransaction);
+        Task InsertServiceTransactionAsync(ServiceTransaction serviceTransaction);
 		
 		/// <summary>
         /// Updates a ServiceTransaction
@@ -40,6 +42,12 @@ namespace Jambopay.Services.ServiceTransactions
         /// </summary>
 		/// <returns>ServiceTransactions</returns>
 		IList<ServiceTransaction> GetServiceTransactions();
+
+        /// <summary>
+        /// Gets queryable service transactions
+        /// </summary>
+        /// <returns></returns>
+        IQueryable<ServiceTransaction> GetQueryableServiceTransaction();
 
         /// <summary>
         /// Gets the service Transactions

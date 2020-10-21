@@ -18,8 +18,20 @@ namespace Jambopay.Web.Framework.Models
         public Guid CustomerGuid { get; set; }
 
         /// <summary>
-        /// Gets or sets the affiliate identifier
+        /// Gets or sets the name
         /// </summary>
-        public int AffiliateId { get; set; }
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the phone number
+        /// </summary>
+        public string PhoneNumber { get; set; }
+
+        /// <summary>
+        /// Gets or sets the ambassador id
+        /// </summary>
+        public int AmbassadorId { get; internal set; }
+        public string Token { get; internal set; }
+        public bool PasswordValid { get; internal set; }
     }
 }

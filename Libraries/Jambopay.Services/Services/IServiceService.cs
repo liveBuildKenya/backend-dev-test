@@ -1,6 +1,7 @@
 
 using Jambopay.Core.Domain.Services;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Jambopay.Services.Services
 {
@@ -40,6 +41,12 @@ namespace Jambopay.Services.Services
         /// </summary>
 		/// <returns>Services</returns>
 		IList<Service> GetServices();
+
+        /// <summary>
+        /// Gets queryable service
+        /// </summary>
+        /// <returns></returns>
+        IQueryable<Service> GetQueryableService();
 
         /// <summary>
         /// Gets a service by name
