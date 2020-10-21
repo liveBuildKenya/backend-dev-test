@@ -27,7 +27,7 @@ git pull https://github.com/liveBuildKenya/backend-dev-test.git
 dotnet run
 ```
 
-# Questions Answered
+# Questions Asked
 ## How to ensure the application scales and performace is optimized.
 1. Ensure the database tables have clustered indexes to speed up query processes in SQL Server.
 2. Usage of asyncronous code
