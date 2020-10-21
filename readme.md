@@ -81,7 +81,7 @@ The Generic [Repository](Libraries/Jambopay.Data/EfRepository.cs) file has the f
 
 ```
 
-The [Transact Controller](Presentation/Jambopay.Web.Api/Controllers/AffiliateController.cs) is asynchronous so as to scale based on the amout to create transaction requests present:
+The [Transact Controller](Presentation/Jambopay.Web.Api/Controllers/AffiliateController.cs) is asynchronous so as to scale processing based on the number of '[POST] Transaction' requests present:
 ``` C#
 
         public async Task<TransactResponseViewModel> Transact([FromBody] TransactViewModel transactViewModel)
@@ -91,7 +91,7 @@ The [Transact Controller](Presentation/Jambopay.Web.Api/Controllers/AffiliateCon
 
 ```
 
-## How to ensure the system and data.
+## How to ensure the system and data security.
 1. How do we prevent a user from changing sensitive database values.
 
 The file of interest is [Network Factory](Presentation/Jambopay.Web.Framework/Factories/NetworkMarketing/NetworkMarketingFactory.cs). The folowing code creates an instance of the data protector from the Microsoft.AspNetCore.DataProtection namespace
