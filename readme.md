@@ -7,7 +7,7 @@ git pull https://github.com/liveBuildKenya/backend-dev-test.git
 
 ```
 
-2. Ensure the data setting file in both the [Data Library](Libraries/Jambopay.Data/App_Data/dataSettings.json) and [Web Api](Presentation/Jambopay.Web.Api/App_Data/dataSettings.json) data settings are pointing to your local instance of MSSQL.
+2. Ensure the data setting file in both the [Data Library](Libraries/Jambopay.Data/App_Data/dataSettings.json) and [Web Api](Presentation/Jambopay.Web.Api/App_Data/dataSettings.json) are pointing to your local instance of MSSQL.
 
 ``` json
 
@@ -18,7 +18,7 @@ git pull https://github.com/liveBuildKenya/backend-dev-test.git
 
 ```
 
-3. Run the migration on the [Data Library](Libraries/Jambopay.Data). For more information on how to run migration consult [EfCore migration documentstion](https://docs.microsoft.com/en-us/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli)
+3. Run the migration on the [Data Library](Libraries/Jambopay.Data). View the [EfCore migration documentation](https://docs.microsoft.com/en-us/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli) to know how to run the migrations.
 
 
 4. Run the [Web Api project](Presentation/Jambopay.Web.Api)
@@ -30,11 +30,10 @@ dotnet run
 # Questions Asked
 ## How to ensure the application scales and performace is optimized.
 1. Ensure the database tables have clustered indexes to speed up query processes in SQL Server.
-2. Usage of asyncronous code
-I have used a generic repository that can access the database both synchronously and asynchronously. Asynchronous code execution ensures the application can use a new cpu thread to execute a request in the event that the executing thread has not completed the request.
+2. Use asyncronous code ensures the application can use a new cpu thread to execute a request in the event that the executing thread has not completed the request.
 
 
-[Repository](Libraries/Jambopay.Data/EfRepository.cs):
+The Generic [Repository](Libraries/Jambopay.Data/EfRepository.cs) file has the following implementations for Inserting using both synchronous and asynchronous methods:
 
 ``` C#
 
@@ -82,7 +81,7 @@ I have used a generic repository that can access the database both synchronously
 
 ```
 
-[Transact Endpoint](Presentation/Jambopay.Web.Api/Controllers/AffiliateController.cs):
+The [Transact Controller](Presentation/Jambopay.Web.Api/Controllers/AffiliateController.cs) is asynchronous so as to scale based on the amout to create transaction requests present:
 ``` C#
 
         public async Task<TransactResponseViewModel> Transact([FromBody] TransactViewModel transactViewModel)
@@ -95,7 +94,7 @@ I have used a generic repository that can access the database both synchronously
 ## How to ensure the system and data.
 1. How do we prevent a user from changing sensitive database values.
 
-The file of interest is [Network Factory](Presentation/Jambopay.Web.Framework/Factories/NetworkMarketing/NetworkMarketingFactory.cs). The encryption and decription is done by the following code:
+The file of interest is [Network Factory](Presentation/Jambopay.Web.Framework/Factories/NetworkMarketing/NetworkMarketingFactory.cs). The folowing code creates an instance of the data protector from the Microsoft.AspNetCore.DataProtection namespace
 
 ``` C#
 
@@ -123,7 +122,11 @@ The following code decrypts the data from the database
 ```
 
 2. Endpoint protection
-The route to transact has been protected using the authorized attribute preventing users without a jwt token from accessing it.
+The route to transact has been protected using the authorized attribute preventing users without a jwt token from accessing it. The jwt token is provided from the authorization header as:
+
+``` 
+        Bearer jwtToken
+```
 
 
 # Project Structure
